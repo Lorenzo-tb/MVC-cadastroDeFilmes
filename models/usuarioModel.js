@@ -1,11 +1,31 @@
-const md5 = require('md5');
+const jwt = require("jsonwebtoken");
+const Sequelize = require('sequelize');
+const db = require('./db.js');
 
-class Usuario{
-    constructor(nome, email, senha){
-        this.nome = nome,
-        this.email = email,
-        this.senha = md5(senha);
+
+
+const Usuario = db.define("usuario", {
+    idUsuario: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true
+    },
+    nome: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    email:{
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    senha:{
+        type: Sequelize.STRING,
+        allowNull: false,
     }
-}
+},{
+    timestamps: false
+});
+
 
 module.exports = Usuario;

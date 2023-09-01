@@ -1,56 +1,63 @@
-const Usuario = require('../models/usuarioModel.js');
+const UsuarioModel = require('../models/usuarioModel.js');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-const usuarios = [];//puxa do banco de dados
 let errorMassege = "";
 
-
-function procurar(usuario){
-    for(let i=0; i<usuarios.length; i++){
-        if(usuario.email == usuarios[i].email && usuario.senha == usuarios[i].senha){
-            return true;
-            
-        }
-        return false;
-    }
-}
-
-
 function getLogin(req, res){//get
-
     res.render("loginView", {errorMassege});
 }
 
-function doLogin(req, res){//post
-    const {email, senha} = req.body;
-    const usuario = new Usuario(null, email, senha);
+async function doLogin(req, res){//post
+    const data = req.body;
 
-    if(procurar(usuario)){
-        res.redirect('/');
+    const user = await UsuarioModel.findOne({
+        atributer: ['idUsuario', 'nome', 'email', 'senha'],
+        where: {
+            email: data.email,
+        }
+    });
+
+    if(user === null){
+        errorMassege = "Usuario nao encontrado!"
+        res.redirect('/login');
+    }
+    else if(!(await bcrypt.compare(data.senha, user.senha))){
+        errorMassege = "Usuario ou senha incorretos!"
+        res.redirect('/login');
     }
     else{
-        errorMassege = "Credenciais invalidas!";
-        res.render("loginView", {errorMassege});
-    }
+        let token = jwt.sign({id: user.idUsuario}, process.env.SECRET, {
+            expiresIn: '1d' //expira em um dia
+        });
+    
+        req.session.token = token;
+        req.session.idUsuario = user.idUsuario;
 
+        res.redirect('/');
+    }
 }
 
 function getCadastro(req, res){//get
     res.render("cadastroView", {errorMassege});
 }
 
-function doCadastro(req, res){//post
-    const {nome, email, senha} = req.body;
-    const usuario = new Usuario(nome, email, senha);
-
-    if(procurar(usuario)){
-        errorMassege = "Usuario ja cadastrado"
-        res.redirect('/cadastro');
-    }
-    else{
-        usuarios.push(usuario);
-        res.redirect('/');
-    }
+async function doCadastro (req, res){//post
+    const data = req.body;
+    data.senha = await bcrypt.hash(data.senha, 8);
     
+    console.log(data);
+    await UsuarioModel.create(data)
+    .then(() =>{
+        errorMassege = "usuario cadastrado!"
+        res.redirect('/login');
+    }).catch((err)=>{
+        if(err){
+            errorMassege = "Falha ao cadastrar o usuario!"
+            console.log(err);
+            res.redirect('/cadastro');
+        }
+    })
 }
 
 
