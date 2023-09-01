@@ -1,11 +1,36 @@
-class Filme{
-    constructor (titulo, sinopse, elenco, direcao, cartaz){
-        this.titulo = titulo,
-        this.sinopse = sinopse,
-        this.elenco = elenco,
-        this.direcao = direcao,
-        this.cartaz = cartaz
+const Sequelize = require('sequelize');
+const db = require('./db.js');
+
+const Filme = db.define("filme", {
+    idFilme: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true
+    },
+    titulo: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    sinopse: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    elenco: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    direcao: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    cartaz: {
+        type: Sequelize.BLOB,
+        allowNull: false,
     }
-}
+},{
+    timestamps: false
+});
+
 
 module.exports = Filme;

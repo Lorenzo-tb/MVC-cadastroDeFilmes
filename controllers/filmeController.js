@@ -1,19 +1,39 @@
-const Filme = require('../models/filmeModel.js');
+const FilmeModel = require('../models/filmeModel.js');
 
-const filmes = [];//pega do banco de dados;
+let message = "";
 
-function getFilmes(req, res){
+async function getFilmes(req, res, next){
+    const filmes = await FilmeModel.findAll();
     res.render("filmeView", {filmes});
 }
 
-function addFilme(req, res){
-    const {titulo, sinopse, elenco, direcao, cartaz} = req.body;
 
-    const filme = new Filme(titulo, sinopse, elenco, direcao, cartaz);
-
-    filmes.push(filme);//envia para o banco de dados
-
-    res.redirect('/');
+function getCadastroFilmes(req, res, next){
+    res.render("cadastroFilmeView", {message});
 }
 
-module.exports = { getFilmes, addFilme };
+
+async function addFilme(req, res){
+    const data = req.body;
+    
+    if(data.titulo == "" || data.sinopse == "" || data.elenco == "" || data.direcao == "" || data.cartaz == ""){
+        message = "Todos os campos devem ser preenchidos!"
+        res.render("cadastroFilmeView", {message});
+    }else{
+        console.log(data);
+        await FilmeModel.create(data)
+        .then(() =>{
+            message = "Filme cadastrado com sucesso";
+            res.render("cadastroFilmeView", {message});
+        }).catch((err)=>{
+            if(err){
+                console.log(err);
+                message = "Erro ao adicionar Filme!"
+        res.render("cadastroFilmeView", {message});
+            }
+        })    
+    }
+    
+}
+
+module.exports = { getFilmes, getCadastroFilmes, addFilme };

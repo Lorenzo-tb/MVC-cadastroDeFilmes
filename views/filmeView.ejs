@@ -7,28 +7,52 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Filmes</h1>
-    <ul>
-        <% filmes.forEach((filme) =>{%>
-            <li><p><%= filme.titulo %></p></li>
-            <% }); %>
-    </ul>
-
-    <h1>CADASTRAR NOVO FILME</h1>
-    <form action="" method="POST">
-        <input type="text" name="titulo" placeholder="Titulo">
-        <br>
-        <input type="text" name="sinopse" placeholder="Sinopse">
-        <br>
-        <input type="text" name="elenco" placeholder="Elenco">
-        <br>
-        <input type="text" name="direcao" placeholder="Direcao">
-        <br>
-        <label for="cartaz">Cartaz</label>
-        <input type="file" name="cartaz" placeholder="Cartaz">
-        <br>
-        <button type="submit">Adicionar</button>
-    </form>
-
+    <div class="container">
+        <div class="card bg-dark mt-3  pb-5 d-flex justify-content-center">
+            <% if(filmes.length > 0){ %>
+                <% filmes.forEach((filme) =>{ %>
+                    <div class="row">
+                        <div class="col-2"></div>
+                        <div class="col-8">
+                            <div class="card mb-3 mt-2" style="max-width: 100%;">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <img src="..." class="img-fluid rounded-start" alt="...">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><%= filme.titulo %></h5>
+                                            <p class="card-text"><%= filme.sinopse %></p>
+                                            <p class="card-text"><small class="text-body-secondary">Elenco: <%= filme.elenco %></small></p>
+                                            <p class="card-text"><small class="text-body-secondary">Direção: <%= filme.direcao %></small></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    
+                        </div> 
+                    </div>
+                <% }); %>  
+            <% }else{ %>
+                <div class="row pt-5">
+                    <div class="col-2"></div>
+                    <div class="col-8">
+                        <div class="card bg-secondary text-light" style="width: 100%;">
+                        <div class="card-body text-light">
+                            <h1 class="card-title">DESCULPA...</h1>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50vw" height="50vh" fill="currentColor" class="bi bi-emoji-frown" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
+                            </svg>
+                            <h4 class="card-subtitle pt-5 pb-3  text-light">Ao que parece, ainda não temos filmes cadastrados</h4>
+                            <button class="btn btn-dark">Voltar</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                
+                
+            <% } %>
+        </div>
+    </div>
 </body>
 </html>
