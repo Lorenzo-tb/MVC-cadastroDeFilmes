@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Filme</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <% if(message){ %>
+            <div class="alert alert-warning fixed-top position-absolute" role="alert">
+                <%= message %>
+            </div>
+        <% } %>
+        <h1 class="mt-5">Edição De Filmes</h1>
+        <div class="row pt-5">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="card bg-dark text-light" style="width: 100%;">
+                    <h1 class="m-3"><%= filme.titulo %></h1>
+                    
+                    <form class="m-4" action="/editarFilme?_method=PUT" method="POST">
+                        <input type="hidden" name="id" value="<%= filme.idFilme %>">
+                        <div class="row mt-3">
+                            <div class="col-xl-2">
+                                <h4>Titulo: </h4>
+                            </div>
+                            <div class="col-xl-10">
+                                <input class="form-control" type="text" name="titulo" value="<%= filme.titulo %>" style="width: 100%;">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-xl-2">
+                                <h4>Sinopse: </h4>
+                            </div>
+                            <div class="col-xl-10">
+                                <input class="form-control" type="text" name="sinopse" value="<%= filme.sinopse %>" style="width: 100%;">
+                            </div>    
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-xl-2">
+                                <h4>Elenco: </h4>
+                            </div>
+                            <div class="col-xl-10">
+                                <input class="form-control" type="text" name="elenco" value="<%= filme.elenco %>" style="width: 100%;">
+                            </div>    
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-xl-2">
+                                <h4>Direção: </h4>
+                            </div>
+                            <div class="col-xl-10">
+                                <input class="form-control" type="text" name="direcao" value="<%= filme.direcao %>" style="width: 100%;">
+                            </div>    
+                        </div>
+                        <button class="btn btn-outline-light btn-lg px-5 mt-4" type="submit">Confirmar Edição</button>
+                    </form>
+                    <div class="row">
+                        <form action="/editarFilme?_method=DELETE" method="POST">
+                            <input type="hidden" name="id" value="<%= filme.idFilme %>">
+                            <button class="btn btn-outline-light btn-lg px-5 ms-4 mb-3" type="submit">Excluir Filme</button>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <form action="/listarFilmes">
+            <div class="container">
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-dark mt-4" style="width: 100%;">Voltar</button>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+</body>
+</html>

@@ -8,23 +8,42 @@
 </head>
 <body>
     <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-2">
+                <form action="/">
+                    <button type="submit" class="btn mt-2 btn-dark" style="width: 100%;">Voltar</button>
+                </form>
+            </div>
+            <div class="col-md-10">
+                <h1>Lista de Filmes</h1>
+            </div>
+        </div>
+        
         <div class="card bg-dark mt-3  pb-5 d-flex justify-content-center">
             <% if(filmes.length > 0){ %>
                 <% filmes.forEach((filme) =>{ %>
-                    <div class="row">
+                    <% console.log(filme.cartaz); %>
+                    <% const imagemBase64 = filme.cartaz.toString('base64'); %>
+                    <% console.log(imagemBase64); %>
+                    <% const imagemDataUrl = `data:image/jpeg;base64,${imagemBase64}`; %>
+                    <div class="row mt-5">
                         <div class="col-2"></div>
                         <div class="col-8">
                             <div class="card mb-3 mt-2" style="max-width: 100%;">
                                 <div class="row g-0">
                                     <div class="col-md-4">
-                                        <img src="..." class="img-fluid rounded-start" alt="...">
+                                        <img src="data:image/png;base64,<%= Buffer.from(filme.cartaz, 'binary').toString('base64') %>;" class="img-fluid rounded-start" alt="...">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <h5 class="card-title"><%= filme.titulo %></h5>
-                                            <p class="card-text"><%= filme.sinopse %></p>
-                                            <p class="card-text"><small class="text-body-secondary">Elenco: <%= filme.elenco %></small></p>
-                                            <p class="card-text"><small class="text-body-secondary">Direção: <%= filme.direcao %></small></p>
+                                            <form action="/listarFilmes" method="POST">
+                                                <input type="hidden" name="titulo" value="<%= filme.titulo %>">
+                                                <h5 class="card-title" name="titulo"><%= filme.titulo %></h5>
+                                                <p class="card-text"><%= filme.sinopse %></p>
+                                                <p class="card-text"><small class="text-body-secondary">Elenco: <%= filme.elenco %></small></p>
+                                                <p class="card-text"><small class="text-body-secondary">Direção: <%= filme.direcao %></small></p>
+                                                <button type="submit" class="btn btn-dark">Editar</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -44,13 +63,13 @@
                                 <path d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
                             </svg>
                             <h4 class="card-subtitle pt-5 pb-3  text-light">Ao que parece, ainda não temos filmes cadastrados</h4>
-                            <button class="btn btn-dark">Voltar</button>
+                            <form action="/">
+                                <button type="submit" class="btn btn-dark">Voltar</button>
+                            </form>
                         </div>
                     </div>
                     </div>
                 </div>
-                
-                
             <% } %>
         </div>
     </div>
