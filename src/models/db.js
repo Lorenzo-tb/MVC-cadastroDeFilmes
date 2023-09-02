@@ -1,9 +1,11 @@
 
 const Sequelize = require('sequelize');
 
-    const sequelize = new Sequelize("cadastroFilmes", "root", "", {
-    host: "127.0.0.1",
-    dialect: "mysql"
+    const sequelize = new Sequelize("railway", "root", "OK6mOtcikyuu5CrxyzMR", {
+    host: "containers-us-west-153.railway.app",
+    dialect: "mysql",
+    port: 5556,
+    url: "mysql://root:OK6mOtcikyuu5CrxyzMR@containers-us-west-153.railway.app:5556/railway"
 })
 
 sequelize.authenticate()
