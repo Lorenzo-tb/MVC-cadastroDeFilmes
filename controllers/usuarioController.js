@@ -90,6 +90,12 @@ async function doCadastro (req, res){//post
     
 }
 
+function sair(req, res){
+    req.session.token = "";
+    req.session.idUsuario = "";
+    res.redirect("/login");
+}
 
 
-module.exports = { getLogin, doLogin, getCadastro, doCadastro};
+
+module.exports = { getLogin, doLogin, getCadastro, doCadastro, sair};

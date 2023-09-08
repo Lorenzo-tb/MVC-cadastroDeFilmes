@@ -78,6 +78,8 @@ app.post("/login", usuarioController.doLogin);
 app.get("/cadastro", usuarioController.getCadastro);
 app.post("/cadastro", usuarioController.doCadastro);
 
+app.post("/sair", usuarioController.sair);
+
 app.listen(port, () =>{
     console.log("Rodando na porta: " +port);
 });

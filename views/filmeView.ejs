@@ -25,6 +25,9 @@
                         <a class="nav-link" href="/listarFilmes">Listar Filmes</a>
                     </li>
                 </ul>
+                <form class="d-flex" action="/sair" method="post">
+                    <button class="btn btn-light" type="submit">Sair da Sessão</button>
+                </form>
             </div>
         </div>
     </nav>
@@ -36,16 +39,13 @@
             <% if(filmes.length > 0){ %>
                 <% filmes.forEach((filme) =>{ %>
                     <% console.log(filme.cartaz); %>
-                    <% const imagemBase64 = filme.cartaz.toString('base64'); %>
-                    <% console.log(imagemBase64); %>
-                    <% const imagemDataUrl = `data:image/jpeg;base64,${imagemBase64}`; %>
                     <div class="row mt-5">
                         <div class="col-2"></div>
                         <div class="col-8">
                             <div class="card mb-3 mt-2" style="max-width: 100%;">
                                 <div class="row g-0">
                                     <div class="col-md-4">
-                                        <img src="data:image/png;base64,<%= Buffer.from(filme.cartaz, 'binary').toString('base64') %>;" class="img-fluid rounded-start" alt="...">
+                                        <img src="data:image/jpeg;base64,<%= Buffer.from(filme.cartaz, 'binary').toString('base64') %>" class="img-fluid rounded-start" alt="...">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
