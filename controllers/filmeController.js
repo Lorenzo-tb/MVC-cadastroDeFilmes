@@ -20,23 +20,30 @@ async function getEditarFilme(req, res, next){
 
 async function putEditarFilme(req, res){
     const data = req.body;
-    console.log(data);
-    console.log("TA CHEGANDO AQUI!")
-
-    await FilmeModel.update(data, {
-        where: {
-            idFilme: data.id
-        }
-    })
-    .then(result => {
-        message = "Filme atualizado";
-        res.redirect("listarFilmes");
-    })
-    .catch(err =>{
-        message = "Erro ao atualizar o filme!";
-        const filme = [];
+    if(data.titulo == "" || data.sinopse == "" || data.elenco == "" || data.direcao == ""){
+        message = "Todos os campos devem ser preenchidos!"
+        const filme = await FilmeModel.findOne({
+            atributer: ['idFilme', 'titulo', 'sinopse', 'elenco', 'direcao', 'cartaz'],
+            where: {
+                titulo: req.session.titulo,
+            }
+        });
         res.render("editarFilmesView", { filme, message });
-    })
+    }
+    else{
+        await FilmeModel.update(data, {
+            where: {
+                idFilme: data.id
+            }
+        })
+        .then(result => {
+            res.redirect("listarFilmes");
+        })
+        .catch(err =>{
+            res.render("editarFilmesView", { filme, message });
+        })
+    }
+    
 }
 
 async function deleteFilme(req, res){
@@ -61,6 +68,7 @@ async function deleteFilme(req, res){
 }
 
 function getCadastroFilmes(req, res, next){
+    message = "";
     res.render("cadastroFilmeView", {message});
 }
 

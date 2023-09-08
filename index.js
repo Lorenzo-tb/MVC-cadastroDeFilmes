@@ -39,7 +39,7 @@ app.get("/cadastroFilmes", (req, res, next) =>{
     else{
         res.redirect("/login");
     }
-})
+});
 app.post("/cadastroFilmes", filmeController.addFilme);
 
 app.get("/listarFilmes", (req, res, next) =>{
@@ -53,7 +53,7 @@ app.get("/listarFilmes", (req, res, next) =>{
 app.post("/listarFilmes", (req, res, next) =>{
     req.session.titulo = req.body.titulo;
     res.redirect("/editarFilme");
-})
+});
 
 app.get("/editarFilme", (req, res, next) =>{
     if(req.session.token){''
@@ -62,7 +62,7 @@ app.get("/editarFilme", (req, res, next) =>{
     else{
         res.redirect("/login");
     }
-})
+});
 app.put("/editarFilme", (req, res) =>{
     console.log("veio aqui no put");
     filmeController.putEditarFilme(req, res);
@@ -70,7 +70,7 @@ app.put("/editarFilme", (req, res) =>{
 app.delete("/editarFilme", (req, res) =>{
     console.log("veio aqui no delete");
     filmeController.deleteFilme(req, res);
-})
+});
 
 app.get("/login", usuarioController.getLogin);
 app.post("/login", usuarioController.doLogin);
