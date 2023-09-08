@@ -43,7 +43,7 @@ app.get("/cadastroFilmes", (req, res, next) =>{
 app.post("/cadastroFilmes", filmeController.addFilme);
 
 app.get("/listarFilmes", (req, res, next) =>{
-    if(req.session.token){''
+    if(req.session.token){
         filmeController.getFilmes(req, res, next);
     }
     else{
@@ -56,7 +56,7 @@ app.post("/listarFilmes", (req, res, next) =>{
 });
 
 app.get("/editarFilme", (req, res, next) =>{
-    if(req.session.token){''
+    if(req.session.token){
         filmeController.getEditarFilme(req, res, next);
     }
     else{
