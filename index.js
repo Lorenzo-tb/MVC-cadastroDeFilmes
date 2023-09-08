@@ -1,7 +1,7 @@
 const express = require('express');
-const filmeController = require('./src/controllers/filmeController.js');
-const usuarioController = require('./src/controllers/usuarioController.js');
-const homeController = require('./src/controllers/homeController.js');
+const filmeController = require('./controllers/filmeController');
+const usuarioController = require('./controllers/usuarioController');
+const homeController = require('./controllers/homeController');
 const dotenv = require('dotenv');
 const methodOverride = require('method-override');
 dotenv.config();
