@@ -4,6 +4,10 @@ const usuarioController = require('./controllers/usuarioController');
 const homeController = require('./controllers/homeController');
 const dotenv = require('dotenv');
 const methodOverride = require('method-override');
+const multer = require('multer');
+const upload = multer({ dest: './cartaz' });
+
+
 dotenv.config();
 
 const app = express();
@@ -18,7 +22,9 @@ app.use(session({
     secret: "cadastroFilmesMVC",
     resave: true,
     saveUninitialized: true
-}))
+}));
+
+app.use('/cartaz', express.static('cartaz'));
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended:true }));
@@ -40,7 +46,7 @@ app.get("/cadastroFilmes", (req, res, next) =>{
         res.redirect("/login");
     }
 });
-app.post("/cadastroFilmes", filmeController.addFilme);
+app.post("/cadastroFilmes", upload.single('cartaz'), filmeController.addFilme);
 
 app.get("/listarFilmes", (req, res, next) =>{
     if(req.session.token){

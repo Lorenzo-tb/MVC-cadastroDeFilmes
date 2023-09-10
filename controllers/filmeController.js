@@ -4,6 +4,7 @@ let message = "";
 
 async function getFilmes(req, res, next){
     const filmes = await FilmeModel.findAll();
+    
     res.render("filmeView", {filmes});
 }
 
@@ -73,12 +74,24 @@ function getCadastroFilmes(req, res, next){
 }
 
 async function addFilme(req, res){
-    const data = req.body;
-    
-    if(data.titulo == "" || data.sinopse == "" || data.elenco == "" || data.direcao == "" || data.cartaz == ""){
+    const body = req.body;
+    const cartaz = req.file.filename;
+    if(body.titulo == "" || body.sinopse == "" || body.elenco == "" || body.direcao == "" || cartaz == ""){
         message = "Todos os campos devem ser preenchidos!"
         res.render("cadastroFilmeView", {message});
+    
+    
     }else{
+        console.log(body);
+        const data = {
+            titulo: body.titulo,
+            sinopse: body.sinopse,
+            elenco: body.elenco,
+            direcao: body.direcao,
+            cartaz: cartaz
+        }
+        
+        console.log(data);
         console.log(data);
         await FilmeModel.create(data)
         .then(() =>{

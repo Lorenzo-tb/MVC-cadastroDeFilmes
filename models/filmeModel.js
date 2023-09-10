@@ -25,7 +25,7 @@ const Filme = db.define("filme", {
         allowNull: false,
     },
     cartaz: {
-        type: Sequelize.BLOB,
+        type: Sequelize.BLOB('long'),
         allowNull: false,
     }
 },{
