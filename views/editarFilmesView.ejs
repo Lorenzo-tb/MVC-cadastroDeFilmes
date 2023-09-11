@@ -78,20 +78,10 @@
                                 <input class="form-control" type="text" name="direcao" value="<%= filme.direcao %>" style="width: 100%;">
                             </div>    
                         </div>
- 
                         <div class="col-md-3">
                             <button class="btn btn-outline-light btn-lg px-5 mt-4" type="submit">Confirmar Edição</button>
                         </div>
-                        
                     </form>
-                    <div class="col-md-3">
-                        <form action="/editarFilme?_method=DELETE" method="POST">
-                            <input type="hidden" name="id" value="<%= filme.idFilme %>">
-                            <button class="btn btn-outline-light btn-lg px-5 ms-4 mb-3" type="submit" style="max-width: 50vw;">Excluir Filme</button>
-                        </form>
-                    </div>
-
-                    
                 </div>
             </div>
         </div>

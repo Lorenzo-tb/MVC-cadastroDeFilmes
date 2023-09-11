@@ -72,7 +72,7 @@ app.put("/editarFilme", (req, res) =>{
     console.log("veio aqui no put");
     filmeController.putEditarFilme(req, res);
 });
-app.delete("/editarFilme", (req, res) =>{
+app.delete("/excluirFilme", (req, res) =>{
     console.log("veio aqui no delete");
     filmeController.deleteFilme(req, res);
 });

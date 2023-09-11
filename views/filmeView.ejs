@@ -44,7 +44,7 @@
                             <div class="card mb-3 mt-2" style="max-width: 100%;">
                                 <div class="row g-0">
                                     <div class="col-md-4">
-                                        <img src="/public//cartaz/<%= filme.cartaz %>" class="img-fluid rounded-start" alt="imagem não encontrada">
+                                        <img src="/public//cartaz/<%= filme.cartaz %>" class="img-fluid rounded-start" alt="imagem não encontrada" style="height: 100%;">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
@@ -56,6 +56,12 @@
                                                 <p class="card-text">Direção:<small class="text-body-secondary"> <%= filme.direcao %></small></p>
                                                 <button type="submit" class="btn btn-dark">Editar</button>
                                             </form>
+                                            <div class="col-md-3">
+                                                <form action="/excluirFilme?_method=DELETE" method="POST">
+                                                    <input type="hidden" name="id" value="<%= filme.idFilme %>">
+                                                    <button class="btn btn-dark mt-3" type="submit" style="max-width: 50vw;">Excluir Filme</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
