@@ -1,14 +1,13 @@
+require('dotenv').config()
 const express = require('express');
 const filmeController = require('./controllers/filmeController');
 const usuarioController = require('./controllers/usuarioController');
 const homeController = require('./controllers/homeController');
-const dotenv = require('dotenv');
 const methodOverride = require('method-override');
 const multer = require('multer');
-const upload = multer({ dest: './cartaz' });
+const upload = multer({ dest: './public/cartaz' });
 
 
-dotenv.config();
 
 const app = express();
 const port = 3000;
@@ -24,7 +23,7 @@ app.use(session({
     saveUninitialized: true
 }));
 
-app.use('/cartaz', express.static('cartaz'));
+app.use('/public', express.static('public'));
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended:true }));
